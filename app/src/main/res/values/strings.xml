@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Gallerit-clone</string>
+    <string name="empty_result">Empty Result!</string>
+    <string name="empty_collection">Empty Collection!</string>
+    <string name="save">save</string>
+    <string name="remove">remove</string>
 </resources>
