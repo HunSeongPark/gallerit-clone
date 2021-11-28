@@ -4,4 +4,8 @@
     <string name="empty_collection">Empty Collection!</string>
     <string name="save">save</string>
     <string name="remove">remove</string>
+
+    <!--  tab text  -->
+    <string name="images">IMAGES</string>
+    <string name="my">MY</string>
 </resources>
