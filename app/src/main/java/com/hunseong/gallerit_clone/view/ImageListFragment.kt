@@ -1,9 +1,8 @@
 package com.hunseong.gallerit_clone.view
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.hunseong.gallerit_clone.R
@@ -28,8 +27,37 @@ class ImageListFragment : Fragment() {
         binding = FragmentImageListBinding.inflate(inflater, container, false)
 
         setImagesObserver()
+        setImageRecyclerView()
+        setSwipeRefreshLayout()
+        setHasOptionsMenu(true)
 
         return binding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_images, menu)
+        setSearchView(menu)
+    }
+
+    private fun setSearchView(menu: Menu) {
+        val searchItem = menu.findItem(R.id.action_search)
+
+        (searchItem.actionView as SearchView).apply {
+            queryHint = getString(R.string.search_hint)
+
+            setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+
+                override fun onQueryTextSubmit(p0: String?): Boolean {
+                    return false
+                }
+
+                override fun onQueryTextChange(p0: String): Boolean {
+                    viewModel.setQuery(p0)
+                    return true
+                }
+
+            })
+        }
     }
 
     private fun setImagesObserver() {
@@ -68,5 +96,24 @@ class ImageListFragment : Fragment() {
         imageAdapter.submitList(images)
     }
 
-    // todo observe부터.
+    private fun showEmptyView(message: String) {
+        with(binding) {
+            swipeLayout.isRefreshing = false
+
+            recyclerView.visibility = View.GONE
+            emptyGroup.visibility = View.VISIBLE
+
+            emptyTv.text = message
+        }
+    }
+
+    private fun setImageRecyclerView() {
+        binding.recyclerView.apply {
+            adapter = imageAdapter
+        }
+    }
+
+    private fun setSwipeRefreshLayout() {
+        binding.swipeLayout.isEnabled = false
+    }
 }
