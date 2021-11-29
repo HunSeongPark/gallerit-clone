@@ -1,10 +1,9 @@
-package com.hunseong.binding
+package com.hunseong.gallerit_clone.binding
 
 import android.view.View
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.hunseong.gallerit_clone.data.model.RedditImage
 import com.hunseong.gallerit_clone.data.model.RedditImages
 import com.hunseong.gallerit_clone.data.model.Result
 

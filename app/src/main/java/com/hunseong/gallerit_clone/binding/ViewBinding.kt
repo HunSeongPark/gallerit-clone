@@ -1,6 +1,5 @@
-package com.hunseong.binding
+package com.hunseong.gallerit_clone.binding
 
-import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.constraintlayout.widget.Group
@@ -8,7 +7,6 @@ import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import com.hunseong.gallerit_clone.R
 import com.hunseong.gallerit_clone.data.model.Result
-import timber.log.Timber
 
 object ViewBinding {
 
