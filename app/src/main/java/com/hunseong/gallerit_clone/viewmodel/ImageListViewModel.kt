@@ -1,19 +1,16 @@
 package com.hunseong.gallerit_clone.viewmodel
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.hunseong.gallerit_clone.data.model.RedditImages
 import com.hunseong.gallerit_clone.data.model.Result
 import com.hunseong.gallerit_clone.data.repository.RedditImageRepository
-import com.hunseong.gallerit_clone.data.repository.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 @HiltViewModel
-class ImageListViewModel @Inject constructor(private val repository: RedditImageRepository) : ViewModel() {
+class ImageListViewModel @Inject constructor(private val repository: RedditImageRepository) :
+    ViewModel() {
 
     private val query = MutableStateFlow("")
 
@@ -24,7 +21,7 @@ class ImageListViewModel @Inject constructor(private val repository: RedditImage
     // stateIn - scope : 지정된 Scope에서 up-stream flow 시작
     // stateIn - started = WhileSubscribed(5000) : 마지막 Collector가 사라지고 upstream flow의 중지 사이 지연 시간 (화면 회전 시 중지되지 않도록)
     // stateIn - initialValue : StateFlow의 초기값. StateFlow는 초기값을 항상 가져야함
-    val images: StateFlow<Result<RedditImages>> = query
+    val result: StateFlow<Result> = query
         .debounce(DEBOUNCE_MILLIS)
         .filter { text ->
             text.isNotEmpty()
