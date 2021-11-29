@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Gallerit-clone</string>
-    <string name="empty_result">Empty Result!</string>
+
     <string name="empty_collection">Empty Collection!</string>
     <string name="save">save</string>
     <string name="remove">remove</string>
@@ -8,8 +8,13 @@
     <!--  tab text  -->
     <string name="images">IMAGES</string>
     <string name="my">MY</string>
-    <string name="no_image_show">Empty Image!</string>
+
+    <!--  result  -->
+    <string name="empty_result">Empty Result!</string>
     <string name="no_internet">Network Error!</string>
+    <string name="something_error">Something Error!</string>
+
+    <!--  search  -->
     <string name="search">Search</string>
     <string name="search_hint">Subreddit...</string>
 </resources>

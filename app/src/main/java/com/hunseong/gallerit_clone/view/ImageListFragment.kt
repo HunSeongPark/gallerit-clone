@@ -5,17 +5,11 @@ import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import com.hunseong.gallerit_clone.R
-import com.hunseong.gallerit_clone.data.model.RedditImage
 import com.hunseong.gallerit_clone.databinding.FragmentImageListBinding
 import com.hunseong.gallerit_clone.view.adapter.RedditImageAdapter
 import com.hunseong.gallerit_clone.viewmodel.ImageListViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ImageListFragment : Fragment() {
@@ -35,11 +29,13 @@ class ImageListFragment : Fragment() {
     ): View {
         binding = FragmentImageListBinding.inflate(inflater, container, false)
 
-        setImagesObserver()
-        setImageRecyclerView()
-        setSwipeRefreshLayout()
-        setHasOptionsMenu(true)
+        binding.apply {
+            lifecycleOwner = this@ImageListFragment
+            vm = viewModel
+            adapter = imageAdapter
+        }
 
+        setHasOptionsMenu(true)
         return binding.root
     }
 
@@ -67,65 +63,5 @@ class ImageListFragment : Fragment() {
 
             })
         }
-    }
-
-    private fun setImagesObserver() {
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.images.collect { result ->
-                    when (result) {
-                        is com.hunseong.gallerit_clone.data.model.Result.Loading -> {
-                            binding.swipeLayout.isRefreshing = true
-                        }
-                        is com.hunseong.gallerit_clone.data.model.Result.Success -> {
-                            showImagesRecyclerView(result.data)
-                        }
-                        is com.hunseong.gallerit_clone.data.model.Result.Empty -> {
-                            val message = getString(R.string.empty_result)
-                            showEmptyView(message)
-                        }
-                        is com.hunseong.gallerit_clone.data.model.Result.Error -> {
-                            val message = if (result.isNetworkError) {
-                                getString(R.string.no_internet)
-                            } else {
-                                getString(R.string.empty_result)
-                            }
-                            showEmptyView(message)
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    private fun showImagesRecyclerView(images: List<RedditImage>) {
-        with(binding) {
-            swipeLayout.isRefreshing = false
-
-            recyclerView.visibility = View.VISIBLE
-            emptyGroup.visibility = View.GONE
-        }
-        imageAdapter.submitList(images)
-    }
-
-    private fun showEmptyView(message: String) {
-        with(binding) {
-            swipeLayout.isRefreshing = false
-
-            recyclerView.visibility = View.GONE
-            emptyGroup.visibility = View.VISIBLE
-
-            emptyTv.text = message
-        }
-    }
-
-    private fun setImageRecyclerView() {
-        binding.recyclerView.apply {
-            adapter = imageAdapter
-        }
-    }
-
-    private fun setSwipeRefreshLayout() {
-        binding.swipeLayout.isEnabled = false
     }
 }
