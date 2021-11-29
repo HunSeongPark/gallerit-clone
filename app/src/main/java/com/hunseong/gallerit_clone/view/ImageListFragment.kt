@@ -2,19 +2,28 @@ package com.hunseong.gallerit_clone.view
 
 import android.os.Bundle
 import android.view.*
-import android.widget.SearchView
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.hunseong.gallerit_clone.R
 import com.hunseong.gallerit_clone.data.model.RedditImage
 import com.hunseong.gallerit_clone.databinding.FragmentImageListBinding
 import com.hunseong.gallerit_clone.view.adapter.RedditImageAdapter
 import com.hunseong.gallerit_clone.viewmodel.ImageListViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class ImageListFragment : Fragment() {
 
     private lateinit var binding: FragmentImageListBinding
+
     private val viewModel: ImageListViewModel by viewModels()
+
     private val imageAdapter: RedditImageAdapter by lazy {
         RedditImageAdapter()
     }
@@ -61,26 +70,29 @@ class ImageListFragment : Fragment() {
     }
 
     private fun setImagesObserver() {
-        viewModel.images.observe(viewLifecycleOwner) { result ->
-            when (result) {
-                is com.hunseong.gallerit_clone.data.model.Result.Loading -> {
-                    // Set refreshing state
-                    binding.swipeLayout.isRefreshing = true
-                }
-                is com.hunseong.gallerit_clone.data.model.Result.Success -> {
-                    showImagesRecyclerView(result.data)
-                }
-                is com.hunseong.gallerit_clone.data.model.Result.Empty -> {
-                    val message = getString(R.string.no_image_show)
-                    showEmptyView(message)
-                }
-                is com.hunseong.gallerit_clone.data.model.Result.Error -> {
-                    val message = if (result.isNetworkError) {
-                        getString(R.string.no_internet)
-                    } else {
-                        getString(R.string.no_image_show)
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.images.collect { result ->
+                    when (result) {
+                        is com.hunseong.gallerit_clone.data.model.Result.Loading -> {
+                            binding.swipeLayout.isRefreshing = true
+                        }
+                        is com.hunseong.gallerit_clone.data.model.Result.Success -> {
+                            showImagesRecyclerView(result.data)
+                        }
+                        is com.hunseong.gallerit_clone.data.model.Result.Empty -> {
+                            val message = getString(R.string.empty_result)
+                            showEmptyView(message)
+                        }
+                        is com.hunseong.gallerit_clone.data.model.Result.Error -> {
+                            val message = if (result.isNetworkError) {
+                                getString(R.string.no_internet)
+                            } else {
+                                getString(R.string.empty_result)
+                            }
+                            showEmptyView(message)
+                        }
                     }
-                    showEmptyView(message)
                 }
             }
         }

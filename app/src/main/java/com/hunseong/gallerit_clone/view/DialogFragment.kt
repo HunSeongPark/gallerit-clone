@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.hunseong.gallerit_clone.databinding.FragmentDialogBinding
 import com.hunseong.gallerit_clone.databinding.FragmentGalleryBinding
+import dagger.hilt.android.AndroidEntryPoint
 
 class DialogFragment : Fragment() {
     private lateinit var binding: FragmentDialogBinding

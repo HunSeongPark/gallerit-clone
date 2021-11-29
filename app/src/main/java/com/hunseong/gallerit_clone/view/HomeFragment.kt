@@ -14,7 +14,9 @@ import com.hunseong.gallerit_clone.databinding.FragmentMyBinding
 import com.hunseong.gallerit_clone.view.adapter.HomePagerAdapter
 import com.hunseong.gallerit_clone.view.adapter.HomePagerAdapter.Companion.IMAGE_LIST_PAGE_INDEX
 import com.hunseong.gallerit_clone.view.adapter.HomePagerAdapter.Companion.MY_PAGE_INDEX
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
 
@@ -54,6 +56,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setToolbar() {
+        binding.toolbar.title = ""
         (activity as MainActivity).setSupportActionBar(binding.toolbar)
     }
 }

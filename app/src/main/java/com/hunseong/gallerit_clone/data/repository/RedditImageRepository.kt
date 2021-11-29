@@ -8,11 +8,12 @@ import com.hunseong.gallerit_clone.data.network.RedditImageRemote
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
 
-class RedditImageRepository(
+class RedditImageRepository @Inject constructor(
     private val remote: RedditImageRemote,
     private val dao: RedditImageDao
-) {
+) : Repository {
     fun getTopImages(subreddit: String): Flow<Result<RedditImages>> = flow {
         emit(Result.loading())
         val images = remote.getTopImages(subreddit)

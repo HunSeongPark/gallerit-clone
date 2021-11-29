@@ -5,10 +5,9 @@ import com.hunseong.gallerit_clone.data.model.RedditImages
 import com.hunseong.gallerit_clone.data.model.RedditPost
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class RedditImageRemoteImpl(
-    private val service: RedditService,
-) : RedditImageRemote {
+class RedditImageRemoteImpl @Inject constructor(private val service: RedditService) : RedditImageRemote {
 
 
     // Room, Retrofit의 경우 suspend function에 대한 main-safe를 지원
