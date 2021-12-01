@@ -10,4 +10,5 @@
     <dimen name="dialog_text_margin">16dp</dimen>
     <dimen name="dialog_btn_margin">16dp</dimen>
     <dimen name="dialog_btn_width">100dp</dimen>
+    <dimen name="dp_16">16dp</dimen>
 </resources>

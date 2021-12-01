@@ -38,7 +38,7 @@ class ImageListFragment : Fragment() {
         binding = FragmentImageListBinding.inflate(inflater, container, false)
 
         binding.apply {
-            lifecycleOwner = this@ImageListFragment
+            lifecycleOwner = viewLifecycleOwner
             vm = viewModel
             recyclerView.adapter = imageAdapter
         }

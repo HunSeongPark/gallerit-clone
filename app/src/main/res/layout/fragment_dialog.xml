@@ -4,7 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <import type="android.view.View"/>
+        <variable
+            name="vm"
+            type="com.hunseong.gallerit_clone.viewmodel.DialogViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -40,7 +43,9 @@
             android:id="@+id/save_btn"
             android:layout_width="@dimen/dialog_btn_width"
             android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.Button"
             android:layout_margin="@dimen/dialog_btn_margin"
+            android:visibility="@{vm.isFavorite?View.GONE:View.VISIBLE}"
             android:text="@string/save"
             app:layout_constraintBottom_toTopOf="@id/rm_btn"
             app:layout_constraintEnd_toEndOf="@id/rm_btn"
@@ -54,6 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/dialog_btn_margin"
             android:text="@string/remove"
+            android:visibility="@{vm.isFavorite?View.VISIBLE:View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -7,17 +7,23 @@ import com.hunseong.gallerit_clone.data.model.RedditImage
 import com.hunseong.gallerit_clone.data.model.RedditImages
 import com.hunseong.gallerit_clone.databinding.ItemGalleryBinding
 import com.hunseong.gallerit_clone.extensions.load
+import timber.log.Timber
 
-class GalleryPagerAdapter :
+class GalleryPagerAdapter(private val onClick: (RedditImage) -> Unit) :
     RecyclerView.Adapter<GalleryPagerAdapter.ViewHolder>() {
 
     var images: Array<RedditImage> = emptyArray()
 
-    class ViewHolder(private val binding: ItemGalleryBinding) :
+    inner class ViewHolder(private val binding: ItemGalleryBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(image: RedditImage) {
+            Timber.tag("wtf").d("bind")
+            binding.iv.setOnClickListener {
+                onClick(image)
+            }
             binding.iv.load(image.url)
+
         }
     }
 
@@ -32,9 +38,4 @@ class GalleryPagerAdapter :
     }
 
     override fun getItemCount(): Int = images.size
-
-    fun submitList(list: Array<RedditImage>) {
-        images = list
-        notifyDataSetChanged()
-    }
 }

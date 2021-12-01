@@ -11,6 +11,15 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="bottomSheetDialogTheme">@style/Theme.Galleritclone.BottomSheetDialog</item>
         <!-- Customize your theme here. -->
+    </style>
+
+    <style name="Theme.Galleritclone.BottomSheetDialog" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/Theme.Galleritclone.BottomSheet</item>
+    </style>
+
+    <style name="Theme.Galleritclone.BottomSheet" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/rounded_background</item>
     </style>
 </resources>

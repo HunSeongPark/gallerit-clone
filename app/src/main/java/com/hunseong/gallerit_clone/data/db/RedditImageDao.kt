@@ -22,9 +22,7 @@ interface RedditImageDao {
     @Delete
     suspend fun deleteImage(vararg images: RedditImage)
 
-    // Room에서 LiveData 반환형의 경우 RoomTrackingLiveData 사용을 트리거하므로
-    // 백그라운드 스레드에서 동작하는 executor를 사용하여 비동기적으로 수행됨. suspend keyword 붙이지 않아도 됨
     // EXISTS(...) : RedditImage Table에서 해당 id에 해당하는 값이 존재하는지 여부
     @Query("SELECT EXISTS(SELECT 1 FROM RedditImage WHERE id =:id LIMIT 1)")
-    fun isImageExists(id: String): LiveData<Boolean>
+    suspend fun isImageExists(id: String): Boolean
 }

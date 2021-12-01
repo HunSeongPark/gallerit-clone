@@ -39,7 +39,8 @@
         android:name="com.hunseong.gallerit_clone.view.DialogFragment"
         tools:layout="@layout/fragment_dialog">
 
-        <argument android:name="image" />
+        <argument android:name="image"
+            app:argType="com.hunseong.gallerit_clone.data.model.RedditImage"/>
 
     </dialog>
 

@@ -17,4 +17,9 @@
     <!--  search  -->
     <string name="search">Search</string>
     <string name="search_hint">Subreddit...</string>
+
+    <!--  dialog  -->
+    <string name="subreddit_name_prefixed">r/%1$s</string>
+    <string name="add_to_favorite">Add to Favorite</string>
+    <string name="remove_from_favorite">Remove From Favorite</string>
 </resources>
