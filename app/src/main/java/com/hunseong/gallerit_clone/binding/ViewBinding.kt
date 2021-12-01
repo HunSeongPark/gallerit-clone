@@ -35,6 +35,30 @@ object ViewBinding {
     }
 
     @JvmStatic
+    @BindingAdapter("isVisibleMyGroup")
+    fun bindIsVisibleMyGroup(group: Group, result: Result) {
+        when (result) {
+            is Result.Success<*> -> group.isVisible = false
+            is Result.Empty -> {
+                group.isVisible = true
+                group.rootView.findViewById<TextView>(R.id.empty_tv).text =
+                    group.context.getString(R.string.empty_collection)
+            }
+            is Result.Error -> {
+                group.isVisible = true
+                group.rootView.findViewById<TextView>(R.id.empty_tv).text =
+                    if (result.isNetworkError) {
+                        group.context.getString(R.string.no_internet)
+                    } else {
+                        group.context.getString(R.string.empty_result)
+                    }
+
+            }
+            else -> Unit
+        }
+    }
+
+    @JvmStatic
     @BindingAdapter("isLoading")
     fun bindIsLoading(view: View, result: Result) {
         view.visibility = when (result) {

@@ -20,13 +20,12 @@ class DialogViewModel @Inject constructor(
 
     private val image: RedditImage = state.get<RedditImage>("image")!!
 
-    val isFavorite: StateFlow<Boolean> =
-        repository.isFavorite(image.id)
-            .stateIn(
-                scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(5000),
-                initialValue = false
-            )
+    val isFavorite: StateFlow<Boolean> = repository.isFavorite(image.id)
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = false
+        )
 
     fun saveImage() {
         viewModelScope.launch {

@@ -9,6 +9,8 @@ import com.hunseong.gallerit_clone.data.model.RedditImage
 import com.hunseong.gallerit_clone.data.model.RedditImages
 import com.hunseong.gallerit_clone.data.model.Result
 import com.hunseong.gallerit_clone.view.adapter.GalleryPagerAdapter
+import com.hunseong.gallerit_clone.view.adapter.MyAdapter
+import timber.log.Timber
 
 object RecyclerViewBinding {
 
@@ -24,6 +26,10 @@ object RecyclerViewBinding {
             else -> {
                 view.visibility = View.GONE
             }
+        }
+
+        if (view.adapter is MyAdapter) {
+            Timber.tag("wtf").d("submit!")
         }
     }
 

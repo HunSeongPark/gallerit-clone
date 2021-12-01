@@ -18,7 +18,6 @@ class GalleryPagerAdapter(private val onClick: (RedditImage) -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(image: RedditImage) {
-            Timber.tag("wtf").d("bind")
             binding.iv.setOnClickListener {
                 onClick(image)
             }

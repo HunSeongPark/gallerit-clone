@@ -1,6 +1,5 @@
 package com.hunseong.gallerit_clone.data.db
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.hunseong.gallerit_clone.data.model.RedditImage
 import com.hunseong.gallerit_clone.data.model.RedditImages
@@ -13,7 +12,6 @@ interface RedditImageDao {
     // 데이터 처리는 비동기적으로 수행됨
     @Query("SELECT * FROM RedditImage")
     fun getAllImages(): Flow<RedditImages>
-
 
     // vararg : 가변 인자, 인자의 개수가 가변적임
     @Insert(onConflict = OnConflictStrategy.REPLACE)
