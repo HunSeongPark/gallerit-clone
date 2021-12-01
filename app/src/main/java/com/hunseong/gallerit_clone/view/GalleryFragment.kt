@@ -32,6 +32,11 @@ class GalleryFragment : Fragment() {
         return binding.root
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        clearFullscreen()
+    }
+
     private fun initViews() = with(binding) {
         viewPager.adapter = pagerAdapter
         images = args.images
@@ -40,5 +45,9 @@ class GalleryFragment : Fragment() {
 
     private fun setFullscreen() {
         activity?.window?.addFlags(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
+    }
+
+    private fun clearFullscreen() {
+        activity?.window?.clearFlags(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
     }
 }

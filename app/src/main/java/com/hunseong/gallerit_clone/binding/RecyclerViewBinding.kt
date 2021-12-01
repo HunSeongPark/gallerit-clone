@@ -9,8 +9,6 @@ import com.hunseong.gallerit_clone.data.model.RedditImage
 import com.hunseong.gallerit_clone.data.model.RedditImages
 import com.hunseong.gallerit_clone.data.model.Result
 import com.hunseong.gallerit_clone.view.adapter.GalleryPagerAdapter
-import com.hunseong.gallerit_clone.view.adapter.HomePagerAdapter
-import timber.log.Timber
 
 object RecyclerViewBinding {
 
