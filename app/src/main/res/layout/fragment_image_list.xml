@@ -10,10 +10,6 @@
         <variable
             name="vm"
             type="com.hunseong.gallerit_clone.viewmodel.ImageListViewModel" />
-
-        <variable
-            name="adapter"
-            type="com.hunseong.gallerit_clone.view.adapter.RedditImageAdapter" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -25,7 +21,6 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:paddingTop="@dimen/card_margin_vertical"
-            app:adapter="@{adapter}"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

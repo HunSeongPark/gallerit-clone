@@ -9,7 +9,7 @@ import com.hunseong.gallerit_clone.data.model.RedditImage
 import com.hunseong.gallerit_clone.databinding.ItemImageBinding
 import com.hunseong.gallerit_clone.extensions.loadWithThumbnail
 
-class RedditImageAdapter :
+class RedditImageAdapter(private val onClick: (Int) -> Unit) :
     ListAdapter<RedditImage, RedditImageAdapter.RedditImageViewHolder>(diffUtil) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RedditImageViewHolder {
@@ -23,8 +23,14 @@ class RedditImageAdapter :
         holder.bind(getItem(position))
     }
 
-    class RedditImageViewHolder(private val binding: ItemImageBinding) :
+    inner class RedditImageViewHolder(private val binding: ItemImageBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            binding.root.setOnClickListener {
+                onClick(adapterPosition)
+            }
+        }
 
         fun bind(image: RedditImage) {
             binding.iv.loadWithThumbnail(image.url)

@@ -5,11 +5,13 @@ import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.hunseong.gallerit_clone.R
 import com.hunseong.gallerit_clone.databinding.FragmentImageListBinding
 import com.hunseong.gallerit_clone.view.adapter.RedditImageAdapter
 import com.hunseong.gallerit_clone.viewmodel.ImageListViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class ImageListFragment : Fragment() {
@@ -19,7 +21,13 @@ class ImageListFragment : Fragment() {
     private val viewModel: ImageListViewModel by viewModels()
 
     private val imageAdapter: RedditImageAdapter by lazy {
-        RedditImageAdapter()
+        RedditImageAdapter { position ->
+            val images = imageAdapter.currentList.toTypedArray()
+            val directions =
+                HomeFragmentDirections.homeFragmentToGalleryFragment(images, position)
+
+            findNavController().navigate(directions)
+        }
     }
 
     override fun onCreateView(
@@ -32,10 +40,10 @@ class ImageListFragment : Fragment() {
         binding.apply {
             lifecycleOwner = this@ImageListFragment
             vm = viewModel
-            adapter = imageAdapter
+            recyclerView.adapter = imageAdapter
         }
-
         setHasOptionsMenu(true)
+        Timber.d("onCreateView")
         return binding.root
     }
 

@@ -21,7 +21,8 @@
         android:name="com.hunseong.gallerit_clone.view.GalleryFragment"
         tools:layout="@layout/fragment_gallery">
 
-        <argument android:name="images" />
+        <argument android:name="images"
+            app:argType="com.hunseong.gallerit_clone.data.model.RedditImage[]"/>
 
         <argument
             android:name="position"
